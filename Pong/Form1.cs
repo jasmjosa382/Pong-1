@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//Raquet
 namespace Pong
 {
     public partial class Form1 : Form
@@ -29,6 +30,14 @@ namespace Pong
 
         SolidBrush blueBrush = new SolidBrush(Color.DodgerBlue);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
+
+        int playerTurn = 1; 
+        bool aDown = false;
+        bool dDown = false;
+        bool leftDown = false;  
+        bool rightDown = false;
+        Pen grayPen = new Pen(Color.Black, 10);
+
 
         public Form1()
         {
