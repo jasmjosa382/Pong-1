@@ -125,6 +125,9 @@ namespace Pong
                 ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed;
             }
 
+
+
+
             //check if ball hits either player. If it does change the direction
             //and place the ball in front of the player hit
             if (player1.IntersectsWith(ball))
