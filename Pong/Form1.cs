@@ -13,8 +13,8 @@ namespace Pong
 {
     public partial class Form1 : Form
     {
-        Rectangle player1 = new Rectangle(10, 170, 10, 60);
-        Rectangle player2 = new Rectangle(580, 170, 10, 60);
+        Rectangle player1 = new Rectangle(10, 120, 10, 60);
+        Rectangle player2 = new Rectangle(10, 250, 10, 60);
         Rectangle ball = new Rectangle(295, 195, 10, 10);
 
         int player1Score = 0;
@@ -36,7 +36,7 @@ namespace Pong
         bool dDown = false;
         bool leftDown = false;  
         bool rightDown = false;
-        Pen grayPen = new Pen(Color.Black, 10);
+        Pen grayPen = new Pen(Color.White, 10); 
 
 
         public Form1()
@@ -60,6 +60,18 @@ namespace Pong
                 case Keys.Down:
                     downArrowDown = true;
                     break;
+                case Keys.A:
+                    aDown = true;
+                    break;
+                case Keys.D:
+                    dDown = true;
+                    break;
+                case Keys.Left:
+                    leftDown = true;
+                    break;
+                case Keys.Right:
+                    rightDown = true;
+                    break;
             }
 
         }
@@ -79,6 +91,18 @@ namespace Pong
                     break;
                 case Keys.Down:
                     downArrowDown = false;
+                    break;
+                case Keys.A:
+                    aDown = false;
+                    break;
+                case Keys.D:
+                    dDown = false;
+                    break;
+                case Keys.Left:
+                    leftDown = false;
+                    break;
+                case Keys.Right:
+                    rightDown = false;
                     break;
             }
 
@@ -108,6 +132,15 @@ namespace Pong
                 player1.Y += playerSpeed;
             }
 
+            if (dDown == true && player1.X < this.Width - player1.Width)
+            {
+                player1.X += playerSpeed;
+            }
+            if (aDown == true && player1.X < this.Width - player1.Width)
+            {
+                player1.X -= playerSpeed;
+            }
+
             //move player 2
             if (upArrowDown == true && player2.Y > 0)
             {
@@ -118,6 +151,14 @@ namespace Pong
             {
                 player2.Y += playerSpeed;
             }
+            if (rightDown == true && player2.X < this.Width - player1.Width)
+            {
+                player2.X += playerSpeed;
+            }
+            if (leftDown == true && player2.X < this.Width - player2.Width)
+            {
+                player2.X -= playerSpeed;
+            }
 
             //check if ball hit top or bottom wall and change direction if it does
             if (ball.Y < 0 || ball.Y > this.Height - ball.Height)
@@ -125,6 +166,10 @@ namespace Pong
                 ballYSpeed *= -1;  // or: ballYSpeed = -ballYSpeed;
             }
 
+            if (ball.X < 0 || ball.X > this.Width - ball.Width)
+            {
+                ballXSpeed *= -1;  // or: ballYSpeed = -ballYSpeed;
+            }
 
 
 
@@ -139,6 +184,17 @@ namespace Pong
             {
                 ballXSpeed *= -1;
                 ball.X = player2.X - ball.Width;
+            }
+
+            if (player1.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.Y = player1.Y + ball.Height;
+            }
+            else if (player2.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.Y = player2.Y - ball.Height;
             }
 
             //check if a player missed the ball and if true add 1 to score of other player 
